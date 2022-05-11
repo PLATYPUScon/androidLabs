@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="ariel">Ариэль</string>
+    <string name="jack">Капитан Джек Воробей</string>
+    <string name="ladybag">Леди Баг</string>
+    <string name="mcqueen">Молния Мак Квин</string>
+    <string name="mickey">Микки Маус</string>
+    <string name="vinny">Винни Пух</string>
+
+    <string name="arielFilms">"Русалочка" - 1989 г. \n"Русалочка 2: Возвращение в море" - 2000 г. \n"Русалочка: Начало истории Ариэль" - 2008 г.</string>
+    <string name="arielShorts">Нет</string>
+    <string name="arielTVseries">Нет</string>
+    <string name="arielEnemies">Урсула</string>
+    <string name="arielFriends">Рыбка Флаундер \nкраб Себастьян</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
