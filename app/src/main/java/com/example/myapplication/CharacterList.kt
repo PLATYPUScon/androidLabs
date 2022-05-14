@@ -21,11 +21,9 @@ import java.io.IOException
 private const val ENDPOINT = "https://api.disneyapi.dev/characters"
 
 class CharacterList : Fragment(), CharacterAdapter.Listener {
-//    val listt = listOf(Character(1,"1","1","1","1","1","1","1","1","1","1"))
     private val adapter = CharacterAdapter(this@CharacterList, emptyList())
 
     lateinit var fragmentBinding: FragmentCharacterListBinding
-    private lateinit var fragmentView: View
 
 
     private fun createHttpRequest(client: OkHttpClient, handler: Handler){
@@ -39,8 +37,10 @@ class CharacterList : Fragment(), CharacterAdapter.Listener {
                 try {
                     val charactersLiveData =
                         CharacterDatabase.instance.characterDao().getAllCharacters()
-                    adapter.setCharacters(charactersLiveData)
-                    adapter.notifyDataSetChanged()
+                    handler.post {
+                        adapter.setCharacters(charactersLiveData)
+                        adapter.notifyDataSetChanged()
+                    }
                 }
                 catch (onFailureError: SQLiteException){
                     onFailureError.printStackTrace()
@@ -136,9 +136,7 @@ class CharacterList : Fragment(), CharacterAdapter.Listener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        fragmentView = inflater.inflate(R.layout.fragment_character_list, container, false)
-        return fragmentView
+        return fragmentBinding.root
     }
 
     override fun onStart() {
@@ -149,7 +147,7 @@ class CharacterList : Fragment(), CharacterAdapter.Listener {
         val handler = Handler()
 
         fragmentBinding.apply {
-            characterRecyclerView.layoutManager = GridLayoutManager(fragmentView.context, 2)
+            characterRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
             characterRecyclerView.adapter = adapter
         }
         createHttpRequest(client, handler)
