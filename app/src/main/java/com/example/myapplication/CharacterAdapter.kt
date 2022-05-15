@@ -9,6 +9,7 @@ import com.example.myapplication.databinding.CharacterItemBinding
 import com.squareup.picasso.Picasso
 
 class CharacterAdapter(private val listener: Listener, private var characterList: List<Character>): RecyclerView.Adapter<CharacterAdapter.CharacterHolder>(){
+
     inner class CharacterHolder(item: View): RecyclerView.ViewHolder(item){
         private val binding = CharacterItemBinding.bind(item)
 

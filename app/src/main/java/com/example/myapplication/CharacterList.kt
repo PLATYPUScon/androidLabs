@@ -1,6 +1,6 @@
 package com.example.myapplication
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import android.os.Handler
@@ -21,6 +21,11 @@ import java.io.IOException
 private const val ENDPOINT = "https://api.disneyapi.dev/characters"
 
 class CharacterList : Fragment(), CharacterAdapter.Listener {
+
+    interface CharacterListListener {
+        fun openCharacterInfo(character: Character)
+    }
+
     private val adapter = CharacterAdapter(this@CharacterList, emptyList())
 
     lateinit var fragmentBinding: FragmentCharacterListBinding
@@ -32,6 +37,7 @@ class CharacterList : Fragment(), CharacterAdapter.Listener {
             .build()
 
         client.newCall(request).enqueue(object : Callback {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onFailure(call: Call, error: IOException) {
                 Log.d("myDebug", "onFailure")
                 try {
@@ -47,6 +53,7 @@ class CharacterList : Fragment(), CharacterAdapter.Listener {
                 }
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call, response: Response) {
                 Log.d("myDebug", "onResponse")
                 val responseData = response.body?.string()
@@ -154,9 +161,7 @@ class CharacterList : Fragment(), CharacterAdapter.Listener {
     }
 
     override fun onClick(character: Character) {
-//        startActivity(Intent(activity, extend_char_info::class.java).apply {
-//            putExtra("item", character)
-//        })
+        (activity as? CharacterListListener)?.openCharacterInfo(character)
     }
 
     companion object {

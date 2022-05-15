@@ -12,7 +12,6 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
-        tools:listitem="@layout/character_item"
-        android:background="#f00"/>
+        tools:listitem="@layout/character_item"/>
 
 </FrameLayout>
