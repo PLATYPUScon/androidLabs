@@ -11,25 +11,25 @@ import com.example.myapplication.db.CharacterDatabase
 
 class MainActivity : AppCompatActivity(), CharacterList.CharacterListListener, CharacterInfo.CharacterInfoListener {
     private lateinit var binding: ActivityMainBinding
-    lateinit var currentFragment : CharacterInfo
+    lateinit var fragment : CharacterInfo
 
     override fun openCharacterInfo(character: Character) {
-        if (this::currentFragment.isInitialized){
+        if (this::fragment.isInitialized){
             supportFragmentManager
                 .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             supportFragmentManager
                 .beginTransaction()
-                .remove(currentFragment)
+                .remove(fragment)
                 .commit() }
 
-        currentFragment = CharacterInfo()
+        fragment = CharacterInfo()
         val bundle = Bundle()
         bundle.putSerializable("character", character)
-        currentFragment.arguments = bundle
+        fragment.arguments = bundle
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.character_info_fragment_container, currentFragment)
+            .add(R.id.character_info_fragment_container, fragment)
             .addToBackStack(null)
             .commit()
     }
